@@ -29,4 +29,13 @@ public class GenreServiceImpl implements GenreService {
                 .orElseThrow(() ->new RecordNotFoundException("Could not find genre named " + name));
     }
 
+    @Override
+    public Genre getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Genre id must not be null");
+        }
+        return genreRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Could not find genre with id  " + id));
+    }
+
 }

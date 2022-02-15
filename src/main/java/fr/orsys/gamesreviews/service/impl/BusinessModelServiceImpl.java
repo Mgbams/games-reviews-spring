@@ -29,4 +29,13 @@ public class BusinessModelServiceImpl implements BusinessModelService {
                 .orElseThrow(() -> new RecordNotFoundException("Could not find business model named " + name));
     }
 
+    @Override
+    public BusinessModel getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("BusinessModel id must not be null");
+        }
+        return businessModelRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Could not find business model with id  " + id));
+    }
+
 }

@@ -29,4 +29,13 @@ public class PublisherServiceImpl implements PublisherService {
                 .orElseThrow(() ->new RecordNotFoundException("Could not find publisher named " + name));
     }
 
+    @Override
+    public Publisher getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Publisher id must not be null");
+        }
+        return publisherRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Could not find publisher with id  " + id));
+    }
+
 }

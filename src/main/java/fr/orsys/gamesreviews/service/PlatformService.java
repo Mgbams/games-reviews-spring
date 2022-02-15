@@ -8,4 +8,6 @@ public interface PlatformService {
 
     Platform addPlatform(Platform platform);
 
+    Platform getPlatformById(Long id);
+
 }

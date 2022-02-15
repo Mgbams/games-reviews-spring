@@ -1,5 +1,6 @@
 package fr.orsys.gamesreviews.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.orsys.gamesreviews.business.user.Moderator;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +49,7 @@ public class Game {
     @ManyToOne
     private Moderator moderator;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
     private List<Review> reviews;
 

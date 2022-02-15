@@ -8,4 +8,6 @@ public interface GenreService {
 
     Genre getGenreByName(String name);
 
+    Genre getById(Long id);
+
 }

@@ -1,5 +1,6 @@
 package fr.orsys.gamesreviews.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +23,7 @@ public class Publisher {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "publisher")
     private List<Game> games;

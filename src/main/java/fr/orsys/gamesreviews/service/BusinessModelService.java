@@ -8,4 +8,6 @@ public interface BusinessModelService {
 
     BusinessModel getBusinessModelByName(String name);
 
+    BusinessModel getById(Long id);
+
 }

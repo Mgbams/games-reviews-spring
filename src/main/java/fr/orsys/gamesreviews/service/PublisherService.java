@@ -8,4 +8,6 @@ public interface PublisherService {
 
     Publisher getPublisherByName(String name);
 
+    Publisher getById(Long id);
+
 }

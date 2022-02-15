@@ -8,4 +8,6 @@ public interface ClassificationService {
 
 	Classification addClassification(Classification classification);
 
+	Classification getById(Long id);
+
 }

@@ -1,5 +1,6 @@
 package fr.orsys.gamesreviews.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class BusinessModel {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "businessModel")
     private List<Game> games;
