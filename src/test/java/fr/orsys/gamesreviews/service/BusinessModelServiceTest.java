@@ -29,48 +29,56 @@ class BusinessModelServiceTest {
     private BusinessModelRepository businessModelRepository;
 
     @Test
-    void should_add_business_model() {
+    void should_Throw_IllegalArgumentException_When_add_And_BusinessModel_null() {
+        assertThrows(IllegalArgumentException.class, () -> serviceUnderTest.add(null));
+    }
+
+    @Test
+    void should_Throw_RecordAlreadyExistException_When_add_And_BusinessModel_Exists() {
+        String name = "Name";
+        BusinessModel model = new BusinessModel();
+        model.setName(name);
+        when(businessModelRepository.getByName(name)).thenReturn(Optional.of(model));
+
+        assertThrows(RecordAlreadyExistException.class, () -> serviceUnderTest.add(model));
+    }
+
+    @Test
+    void should_Add_BusinessModel_When_add() {
         BusinessModel expected = new BusinessModel();
         expected.setName("Model");
         when(businessModelRepository.save(any(BusinessModel.class))).thenReturn(expected);
 
-        BusinessModel result = serviceUnderTest.addBusinessModel(expected);
+        BusinessModel result = serviceUnderTest.add(expected);
 
         verify(businessModelRepository).save(expected);
         assertEquals(expected, result);
     }
 
     @Test
-    void should_throw_RecordAlreadyExistException_when_business_model_exists() {
-        String name = "Name";
-        BusinessModel model = new BusinessModel();
-        model.setName(name);
-        when(businessModelRepository.getByName(name)).thenReturn(Optional.of(model));
-
-        assertThrows(RecordAlreadyExistException.class, () -> serviceUnderTest.addBusinessModel(model));
+    void should_Throw_IllegalArgumentException_When_getById_And_Id_null() {
+        assertThrows(IllegalArgumentException.class, () -> serviceUnderTest.getById(null));
     }
 
     @Test
-    void should_return_business_model_by_name() {
-        String name = "Name";
+    void should_Throw_RecordNotFoundException_When_getById_And_BusinessModel_NotFound() {
+        Long id = 1L;
+        when(businessModelRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(RecordNotFoundException.class, () -> serviceUnderTest.getById(id));
+    }
+
+    @Test
+    void should_Return_BusinessModel_When_getById() {
+        Long id = 1L;
         BusinessModel expected = new BusinessModel();
-        expected.setName(name);
-        when(businessModelRepository.getByName(any(String.class))).thenReturn(Optional.of(expected));
+        expected.setId(id);
+        when(businessModelRepository.findById(any(Long.class))).thenReturn(Optional.of(expected));
 
-        BusinessModel result = serviceUnderTest.getBusinessModelByName(name);
+        BusinessModel result = serviceUnderTest.getById(id);
 
-        verify(businessModelRepository).getByName(name);
+        verify(businessModelRepository).findById(id);
         assertEquals(expected, result);
-    }
-
-    @Test
-    void should_throw_RecordNotFoundException_when_genre_not_found() {
-        String name = "Name";
-        BusinessModel model = new BusinessModel();
-        model.setName(name);
-        when(businessModelRepository.getByName(name)).thenReturn(Optional.empty());
-
-        assertThrows(RecordNotFoundException.class, () -> serviceUnderTest.getBusinessModelByName(name));
     }
 
 }

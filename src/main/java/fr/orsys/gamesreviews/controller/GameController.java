@@ -25,28 +25,28 @@ public class GameController {
             @RequestParam(value = "sort", defaultValue = "releaseDate") String sort,
             @RequestParam(value = "direction", defaultValue = "desc") String direction
     ) {
-        return new ResponseEntity<>(gameService.getGames(page, size, sort, direction), HttpStatus.OK);
+        return new ResponseEntity<>(gameService.getGames(page - 1, size, direction, sort), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GameDTO> getGameById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(gameService.getGameById(id), HttpStatus.OK);
+        return new ResponseEntity<>(gameService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<GameDTO> addGame(@Valid @RequestBody GameDTO gameDTO) {
-        return new ResponseEntity<>(gameService.addGame(gameDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(gameService.add(gameDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<GameDTO> updateGame(@Valid @RequestBody GameDTO gameDTO,
                                               @PathVariable("id") Long id) {
-        return new ResponseEntity<>(gameService.updateGame(id, gameDTO), HttpStatus.OK);
+        return new ResponseEntity<>(gameService.update(id, gameDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteGame(@PathVariable("id") Long id) {
-        gameService.deleteGameById(id);
+        gameService.deleteById(id);
         return new ResponseEntity<>("Game deleted successfully", HttpStatus.NO_CONTENT);
     }
 
