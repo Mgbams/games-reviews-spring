@@ -34,7 +34,7 @@ class GameServiceTest {
     private Mapper<Game, GameDTO> mapper;
 
     @Test
-    void should_Count_Games() {
+    void should_Count_Games_when_count() {
         // Arrange
         long expected = 5;
         when(gameRepository.count()).thenReturn(expected);
@@ -128,11 +128,7 @@ class GameServiceTest {
     @Test
     void should_Return_Page_with_GamesDTO_When_getGames() {
         // Arrange
-        int page = 0;
-        int size = 1;
-        String sort = "releaseDate";
-        String direction ="DESC";
-        PageRequest request = PageRequest.of(0, 1, Sort.Direction.valueOf(direction), sort);
+        PageRequest request = PageRequest.of(0, 1, Sort.Direction.valueOf("DESC"), "releaseDate");
 
         long gameId = 1;
         Game game = new Game();
@@ -149,7 +145,7 @@ class GameServiceTest {
         when(mapper.mapEntityToDto(game)).thenReturn(gameDTO);
 
         // Act
-        Page<GameDTO> result = serviceUnderTest.getGames(0, 1, direction, sort);
+        Page<GameDTO> result = serviceUnderTest.getGames(request);
 
         // Assert
         verify(gameRepository).findAll(request);

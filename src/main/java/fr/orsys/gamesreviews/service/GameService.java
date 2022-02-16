@@ -2,6 +2,7 @@ package fr.orsys.gamesreviews.service;
 
 import fr.orsys.gamesreviews.dto.GameDTO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface GameService {
 
@@ -11,7 +12,7 @@ public interface GameService {
 
     GameDTO getById(Long id);
 
-    Page<GameDTO> getGames(int page, int size, String direction, String sort);
+    Page<GameDTO> getGames(Pageable pageable);
 
     GameDTO update(Long id, GameDTO gameDTO);
 

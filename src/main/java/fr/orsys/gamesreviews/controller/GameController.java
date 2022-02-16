@@ -4,14 +4,19 @@ import fr.orsys.gamesreviews.dto.GameDTO;
 import fr.orsys.gamesreviews.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @AllArgsConstructor
 
+@Validated
 @RestController
 @RequestMapping("/api/games")
 public class GameController {
@@ -20,12 +25,8 @@ public class GameController {
 
     @GetMapping("")
     public ResponseEntity<Page<GameDTO>> getGames(
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "20") int size,
-            @RequestParam(value = "sort", defaultValue = "releaseDate") String sort,
-            @RequestParam(value = "direction", defaultValue = "desc") String direction
-    ) {
-        return new ResponseEntity<>(gameService.getGames(page - 1, size, direction, sort), HttpStatus.OK);
+            @PageableDefault @SortDefault("DESC,  releaseDate") Pageable pageable) {
+        return new ResponseEntity<>(gameService.getGames(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -9,8 +9,7 @@ import fr.orsys.gamesreviews.repository.GameRepository;
 import fr.orsys.gamesreviews.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -57,9 +56,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Page<GameDTO> getGames(int page, int size, String direction, String sort) {
-        Page<Game> games = gameRepository.findAll(
-                PageRequest.of(page, size, Sort.Direction.fromString(direction), sort));
+    public Page<GameDTO> getGames(Pageable pageable) {
+        Page<Game> games = gameRepository.findAll(pageable);
         return games.map(mapper::mapEntityToDto);
     }
 
