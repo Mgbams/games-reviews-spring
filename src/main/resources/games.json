@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Left 4 Dead 2",
+    "description": "Cooperative survival continues with a different set of characters. New survivors are making their way through 5 campaigns with an added ability to play through the story of the first game as well, using not only expanded arsenal of 20 ranged and 10 melee weapons but improved AI Director. Your surroundings and weather will change; enemy and item placement will differ from map to map, from difficulty to difficulty. New unique special zombies, placed in the unlucky for the player spot, can end your run.\r\nHigh compatibility with community mods will allow you not only to add user-created maps but player models, enemy models, and even in-game music, which will help any player to create the unique experience on top of solid game mechanics.\r\nCompetitive multiplayer mods from arena survival to a head-on competition with another team of survivors are addictive and, in addition to the campaign, will provide you with hundreds of hours of game content.",
+    "releaseDate": "2009-11-17",
+    "picture": "https://media.rawg.io/media/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg",
+    "genre": {
+      "name": "Action"
+    },
+    "classification": {
+      "id": 5,
+      "name": "PEGI 18"
+    },
+    "publisher": {
+      "name": "Electronic Arts"
+    },
+    "businessModel": {
+      "name": "Buy-to-play (B2P)"
+    },
+    "platforms": [
+      {
+        "id": 1,
+        "name": "Windows"
+      },
+      {
+        "id": 2,
+        "name": "macOS"
+      },
+      {
+        "id": 3,
+        "name": "Linux"
+      },
+      {
+        "id": 9,
+        "name": "Xbox 360"
+      }
+    ]
+  }
+]

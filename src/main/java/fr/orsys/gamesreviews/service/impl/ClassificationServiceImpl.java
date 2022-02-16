@@ -1,5 +1,6 @@
 package fr.orsys.gamesreviews.service.impl;
 
+import fr.orsys.gamesreviews.exception.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 
 import fr.orsys.gamesreviews.business.Classification;
@@ -21,12 +22,25 @@ public class ClassificationServiceImpl implements ClassificationService {
 	}
 
 	@Override
-	public Classification addClassification(Classification classification) {
+	public Classification add(Classification classification) {
+		if (classification == null) {
+			throw new IllegalArgumentException("Classification must not be null");
+		}
+
 		if (classificationRepository.getByName(classification.getName()).isPresent()) {
 			throw new RecordAlreadyExistException(
 					"Classification with name \"" + classification.getName() + "\" already exists");
 		}
 		return classificationRepository.save(classification);
+	}
+
+	@Override
+	public Classification getById(Long id) {
+		if (id == null) {
+			throw new IllegalArgumentException("Classification id must not be null");
+		}
+		return classificationRepository.findById(id)
+				.orElseThrow(() -> new RecordNotFoundException("Could not find Classification with id " + id));
 	}
 
 }

@@ -16,7 +16,11 @@ public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
 
     @Override
-    public Genre addGenre(Genre genre) {
+    public Genre add(Genre genre) {
+        if (genre == null) {
+            throw new IllegalArgumentException("Genre must not be null");
+        }
+
         if (genreRepository.getByName(genre.getName()).isPresent()) {
             throw new RecordAlreadyExistException("Genre with name \"" + genre.getName() + "\" already exists");
         }
@@ -24,9 +28,12 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Genre getGenreByName(String name) {
-        return genreRepository.getByName(name)
-                .orElseThrow(() ->new RecordNotFoundException("Could not find genre named " + name));
+    public Genre getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Genre id must not be null");
+        }
+        return genreRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Could not find genre with id  " + id));
     }
 
 }

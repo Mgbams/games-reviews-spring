@@ -16,7 +16,11 @@ public class BusinessModelServiceImpl implements BusinessModelService {
     private final BusinessModelRepository businessModelRepository;
 
     @Override
-    public BusinessModel addBusinessModel(BusinessModel businessModel) {
+    public BusinessModel add(BusinessModel businessModel) {
+        if (businessModel == null) {
+            throw new IllegalArgumentException("BusinessModel must not be null");
+        }
+
         if (businessModelRepository.getByName(businessModel.getName()).isPresent()) {
             throw new RecordAlreadyExistException("BusinessModel with name \"" + businessModel.getName() + "\" already exists");
         }
@@ -24,9 +28,12 @@ public class BusinessModelServiceImpl implements BusinessModelService {
     }
 
     @Override
-    public BusinessModel getBusinessModelByName(String name) {
-        return businessModelRepository.getByName(name)
-                .orElseThrow(() -> new RecordNotFoundException("Could not find business model named " + name));
+    public BusinessModel getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("BusinessModel id must not be null");
+        }
+        return businessModelRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Could not find business model with id  " + id));
     }
 
 }

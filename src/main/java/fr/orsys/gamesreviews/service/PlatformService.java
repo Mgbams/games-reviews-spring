@@ -6,6 +6,8 @@ public interface PlatformService {
 
     long countPlatforms();
 
-    Platform addPlatform(Platform platform);
+    Platform add(Platform platform);
+
+    Platform getById(Long id);
 
 }
