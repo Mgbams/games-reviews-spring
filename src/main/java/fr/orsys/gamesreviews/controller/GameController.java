@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @AllArgsConstructor
 
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api/games")
 public class GameController {
