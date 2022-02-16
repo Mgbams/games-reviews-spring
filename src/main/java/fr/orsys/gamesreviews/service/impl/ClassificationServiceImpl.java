@@ -22,7 +22,11 @@ public class ClassificationServiceImpl implements ClassificationService {
 	}
 
 	@Override
-	public Classification addClassification(Classification classification) {
+	public Classification add(Classification classification) {
+		if (classification == null) {
+			throw new IllegalArgumentException("Classification must not be null");
+		}
+
 		if (classificationRepository.getByName(classification.getName()).isPresent()) {
 			throw new RecordAlreadyExistException(
 					"Classification with name \"" + classification.getName() + "\" already exists");

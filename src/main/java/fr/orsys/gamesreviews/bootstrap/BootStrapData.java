@@ -44,7 +44,7 @@ public class BootStrapData implements CommandLineRunner {
             for (String name : platforms) {
                 Platform platform = new Platform();
                 platform.setName(name);
-                platformService.addPlatform(platform);
+                platformService.add(platform);
             }
         }
     }
@@ -55,7 +55,7 @@ public class BootStrapData implements CommandLineRunner {
             for (int age : ages) {
                 Classification classification = new Classification();
                 classification.setName("PEGI " + age);
-                classificationService.addClassification(classification);
+                classificationService.add(classification);
             }
         }
     }
@@ -67,7 +67,7 @@ public class BootStrapData implements CommandLineRunner {
         try {
             File resource = new ClassPathResource("games.json").getFile();
             List<GameDTO> games = mapper.readValue(resource, typeReference);
-            if (gameService.countGames() == 0) {
+            if (gameService.count() == 0) {
                 games.forEach(this::insertGame);
             }
         } catch (IOException e) {
@@ -80,13 +80,13 @@ public class BootStrapData implements CommandLineRunner {
         addPublisherIfNotExist(dto.getPublisher());
         addBusinessModelIfNotExist(dto.getBusinessModel());
 
-        dto = gameService.addGame(dto);
+        dto = gameService.add(dto);
         log.debug("Added Game : \"{}\"", dto.getName());
     }
 
     private void addGenreIfNotExist(Genre genre) {
         try {
-            genre = genreService.addGenre(genre);
+            genre = genreService.add(genre);
             log.info("Added Genre : \"{}\"", genre.getName());
         } catch (RecordAlreadyExistException e) {
             log.warn(e.getMessage());
@@ -95,7 +95,7 @@ public class BootStrapData implements CommandLineRunner {
 
     private void addPublisherIfNotExist(Publisher publisher) {
         try {
-            publisher = publisherService.addPublisher(publisher);
+            publisher = publisherService.add(publisher);
             log.info("Added Publisher : \"{}\"", publisher.getName());
         } catch (RecordAlreadyExistException e) {
             log.warn(e.getMessage());
@@ -104,7 +104,7 @@ public class BootStrapData implements CommandLineRunner {
 
     private void addBusinessModelIfNotExist(BusinessModel businessModel) {
         try {
-            businessModel = businessModelService.addBusinessModel(businessModel);
+            businessModel = businessModelService.add(businessModel);
             log.info("Added Business Model : \"{}\"", businessModel.getName());
         } catch (RecordAlreadyExistException e) {
             log.warn(e.getMessage());

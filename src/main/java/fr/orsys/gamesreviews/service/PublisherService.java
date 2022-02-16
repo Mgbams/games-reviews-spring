@@ -4,9 +4,7 @@ import fr.orsys.gamesreviews.business.Publisher;
 
 public interface PublisherService {
 
-    Publisher addPublisher(Publisher publisher);
-
-    Publisher getPublisherByName(String name);
+    Publisher add(Publisher publisher);
 
     Publisher getById(Long id);
 

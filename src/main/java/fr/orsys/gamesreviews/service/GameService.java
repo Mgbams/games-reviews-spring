@@ -2,19 +2,20 @@ package fr.orsys.gamesreviews.service;
 
 import fr.orsys.gamesreviews.dto.GameDTO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface GameService {
 
-    long countGames();
+    long count();
 
-    GameDTO addGame(GameDTO gameDTO);
+    GameDTO add(GameDTO gameDTO);
 
-    GameDTO getGameById(Long id);
+    GameDTO getById(Long id);
 
-    Page<GameDTO> getGames(int page, int size, String sort, String direction);
+    Page<GameDTO> getGames(Pageable pageable);
 
-    GameDTO updateGame(Long id, GameDTO gameDTO);
+    GameDTO update(Long id, GameDTO gameDTO);
 
-    void deleteGameById(Long id);
+    void deleteById(Long id);
 
 }

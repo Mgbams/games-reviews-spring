@@ -41,7 +41,7 @@ import fr.orsys.gamesreviews.service.PlatformService;
 import fr.orsys.gamesreviews.service.PublisherService;
 
 @ExtendWith(SpringExtension.class)
-// @SpringBootTest
+@SpringBootTest
 public class GameControllerIT {
 	@InjectMocks
     private GameController gameController;
@@ -99,9 +99,9 @@ public class GameControllerIT {
 		newGame.setPicture("tri.jpg");
 		newGame.setReleaseDate(new Date(17/11/2001));
 		newGame.setPublisher(publisherService.getById(idPublisher));
-		newGame.getPlatforms().add(platformService.getPlatformById(idPlatform));
+		newGame.getPlatforms().add(platformService.getById(idPlatform));
 		
-		when(gameService.addGame(newGame)).thenReturn(newGame);
+		when(gameService.add(newGame)).thenReturn(newGame);
 
 		String content = objectWriter.writeValueAsString(newGame);
 

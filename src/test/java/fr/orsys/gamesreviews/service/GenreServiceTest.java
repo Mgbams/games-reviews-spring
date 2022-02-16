@@ -29,15 +29,14 @@ class GenreServiceTest {
     private GenreRepository genreRepository;
 
     @Test
-    void should_add_genre() {
+    void should_Add_Genre_When_add() {
         // Arrange
         Genre expected = new Genre();
         expected.setName("Genre");
-
         when(genreRepository.save(any(Genre.class))).thenReturn(expected);
 
         // Act
-        Genre result = serviceUnderTest.addGenre(expected);
+        Genre result = serviceUnderTest.add(expected);
 
         // Assert
         verify(genreRepository).save(expected);
@@ -45,35 +44,44 @@ class GenreServiceTest {
     }
 
     @Test
-    void should_throw_RecordAlreadyExistException_when_genre_exists() {
+    void should_Throw_IllegalArgumentException_When_add_And_Genre_null() {
+        assertThrows(IllegalArgumentException.class, () -> serviceUnderTest.add(null));
+    }
+
+    @Test
+    void should_Throw_RecordAlreadyExistException_When_add_And_Genre_Exists() {
         String name = "Name";
         Genre genre = new Genre();
         genre.setName(name);
         when(genreRepository.getByName(name)).thenReturn(Optional.of(genre));
 
-        assertThrows(RecordAlreadyExistException.class, () -> serviceUnderTest.addGenre(genre));
+        assertThrows(RecordAlreadyExistException.class, () -> serviceUnderTest.add(genre));
     }
 
     @Test
-    void should_return_genre_by_name() {
-        String name = "Name";
+    void should_Throw_IllegalArgumentException_When_getId_And_Id_null() {
+        assertThrows(IllegalArgumentException.class, () -> serviceUnderTest.getById(null));
+    }
+
+    @Test
+    void should_Throw_RecordNotFoundException_When_getById_And_Genre_NotFound() {
+        Long id = 1L;
+        when(genreRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(RecordNotFoundException.class, () -> serviceUnderTest.getById(id));
+    }
+
+    @Test
+    void should_Return_Genre_When_getById() {
+        Long id = 1L;
         Genre expected = new Genre();
-        expected.setName(name);
-        when(genreRepository.getByName(any(String.class))).thenReturn(Optional.of(expected));
+        expected.setId(id);
+        when(genreRepository.findById(any(Long.class))).thenReturn(Optional.of(expected));
 
-        Genre result = serviceUnderTest.getGenreByName(name);
+        Genre result = serviceUnderTest.getById(id);
 
-        verify(genreRepository).getByName(name);
+        verify(genreRepository).findById(id);
         assertEquals(expected, result);
     }
 
-    @Test
-    void should_throw_RecordNotFoundException_when_genre_not_found() {
-        String name = "Name";
-        Genre genre = new Genre();
-        genre.setName(name);
-        when(genreRepository.getByName(name)).thenReturn(Optional.empty());
-
-        assertThrows(RecordNotFoundException.class, () -> serviceUnderTest.getGenreByName(name));
-    }
 }

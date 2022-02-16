@@ -31,11 +31,11 @@ class GameControllerTest {
 		
 		ResponseEntity<GameDTO> expected = new ResponseEntity<>(gameDto, HttpStatus.OK);
 		
-		when(gameService.getGameById(idGame)).thenReturn(gameDto);
+		when(gameService.getById(idGame)).thenReturn(gameDto);
 		
 		ResponseEntity<GameDTO> result = gameController.getGameById(idGame);
 		
-		verify(gameService).getGameById(idGame);
+		verify(gameService).getById(idGame);
 		
 		assertEquals(expected, result);
 		

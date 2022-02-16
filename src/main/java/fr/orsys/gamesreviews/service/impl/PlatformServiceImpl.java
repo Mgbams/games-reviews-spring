@@ -21,7 +21,11 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     @Override
-    public Platform addPlatform(Platform platform) {
+    public Platform add(Platform platform) {
+        if (platform == null) {
+            throw new IllegalArgumentException("Platform must not be null");
+        }
+
         if (platformRepository.getByName(platform.getName()).isPresent()) {
             throw new RecordAlreadyExistException("Platform with name \"" + platform.getName() + "\" already exists");
         }
@@ -29,7 +33,7 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     @Override
-    public Platform getPlatformById(Long id) {
+    public Platform getById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Platform id must not be null");
         }
