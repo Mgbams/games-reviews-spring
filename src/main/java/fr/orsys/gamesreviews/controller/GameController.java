@@ -5,6 +5,7 @@ import fr.orsys.gamesreviews.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class GameController {
 
     @GetMapping("")
     public ResponseEntity<Page<GameDTO>> getGames(
-            @PageableDefault @SortDefault("DESC,  releaseDate") Pageable pageable) {
+            @PageableDefault @SortDefault(direction = Sort.Direction.DESC, sort = "releaseDate") Pageable pageable) {
         return new ResponseEntity<>(gameService.getGames(pageable), HttpStatus.OK);
     }
 
