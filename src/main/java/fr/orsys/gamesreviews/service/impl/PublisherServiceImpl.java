@@ -16,17 +16,15 @@ public class PublisherServiceImpl implements PublisherService {
     private final PublisherRepository publisherRepository;
 
     @Override
-    public Publisher addPublisher(Publisher publisher) {
+    public Publisher add(Publisher publisher) {
+        if (publisher == null) {
+            throw new IllegalArgumentException("Publisher must not be null");
+        }
+
         if (publisherRepository.getByName(publisher.getName()).isPresent()) {
             throw new RecordAlreadyExistException("Publisher with name \"" + publisher.getName() + "\" already exists");
         }
         return publisherRepository.save(publisher);
-    }
-
-    @Override
-    public Publisher getPublisherByName(String name) {
-        return publisherRepository.getByName(name)
-                .orElseThrow(() ->new RecordNotFoundException("Could not find publisher named " + name));
     }
 
     @Override

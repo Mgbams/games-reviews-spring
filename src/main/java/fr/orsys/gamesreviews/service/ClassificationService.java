@@ -6,7 +6,7 @@ public interface ClassificationService {
 
 	long countClassifications();
 
-	Classification addClassification(Classification classification);
+	Classification add(Classification classification);
 
 	Classification getById(Long id);
 

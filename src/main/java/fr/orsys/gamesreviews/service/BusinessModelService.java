@@ -4,9 +4,7 @@ import fr.orsys.gamesreviews.business.BusinessModel;
 
 public interface BusinessModelService {
 
-    BusinessModel addBusinessModel(BusinessModel businessModel);
-
-    BusinessModel getBusinessModelByName(String name);
+    BusinessModel add(BusinessModel businessModel);
 
     BusinessModel getById(Long id);
 

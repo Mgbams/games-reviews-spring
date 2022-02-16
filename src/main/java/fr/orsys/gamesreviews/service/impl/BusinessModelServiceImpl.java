@@ -16,17 +16,15 @@ public class BusinessModelServiceImpl implements BusinessModelService {
     private final BusinessModelRepository businessModelRepository;
 
     @Override
-    public BusinessModel addBusinessModel(BusinessModel businessModel) {
+    public BusinessModel add(BusinessModel businessModel) {
+        if (businessModel == null) {
+            throw new IllegalArgumentException("BusinessModel must not be null");
+        }
+
         if (businessModelRepository.getByName(businessModel.getName()).isPresent()) {
             throw new RecordAlreadyExistException("BusinessModel with name \"" + businessModel.getName() + "\" already exists");
         }
         return businessModelRepository.save(businessModel);
-    }
-
-    @Override
-    public BusinessModel getBusinessModelByName(String name) {
-        return businessModelRepository.getByName(name)
-                .orElseThrow(() -> new RecordNotFoundException("Could not find business model named " + name));
     }
 
     @Override

@@ -59,7 +59,7 @@ public class GameMapper implements Mapper<Game, GameDTO> {
             if (platform.getId() == null) {
                 platforms.add(platform);
             } else {
-                platforms.add(platformService.getPlatformById(platform.getId()));
+                platforms.add(platformService.getById(platform.getId()));
             }
         }
         game.setPlatforms(platforms);
