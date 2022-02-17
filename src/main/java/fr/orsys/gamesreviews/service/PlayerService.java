@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import fr.orsys.gamesreviews.business.user.Player;
 
+
 public interface PlayerService {
 
 	Player addPlayer(Player player);
