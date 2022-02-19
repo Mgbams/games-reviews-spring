@@ -20,15 +20,24 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private LocalDateTime publicationDateTime;
+
     private LocalDateTime moderationDateTime;
-    private Float score;
+
+    @Column(nullable = false)
+    private Integer score;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Game game;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Player player;
 
     @ManyToOne
@@ -69,4 +78,3 @@ public class Review {
     }
 
 }
-

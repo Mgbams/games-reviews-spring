@@ -29,6 +29,7 @@ public class BootStrapData implements CommandLineRunner {
     private final GenreService genreService;
     private final PublisherService publisherService;
     private final BusinessModelService businessModelService;
+    private final ReviewService reviewService;
 
     @Override
     public void run(String... args) {
