@@ -26,49 +26,11 @@ public class PlayerController {
 	private final PlayerService playerService;
 	
 	private final UserService userService;
-	
-//	@RequestMapping("/login")
-//	public boolean getPlayer(@RequestBody Player player) {
-//		if (playerService.getPlayer(player.getPseudonym()) != null) {
-//			if (player.getPassword().equals("password")) {
-//				return true;
-//			} else { 
-//				return false;
-//			}
-//		} else {
-//			return false;
-//		}
-//	}
 
 	@RequestMapping("/login")
 	public ResponseEntity<UserDTO> getUser(@RequestBody LoginDTO login) {
 		UserDTO userFind = userService.findByPseudonym(login.getPseudonym());
 		return new ResponseEntity<>(userFind, HttpStatus.OK);
-		
-		
-//		return userFind;
-//		if(userFind != null && user.getPassword().equals(userFind.getPassword())) {
-//			if(userFind instanceof Player) {
-//				System.out.println("Player");
-//			} 
-//			
-//		} else {
-//			return null;
-//		}
-
-//		if (userFind != null) {
-//			if (user.getPassword().equals(userFind.getPassword())) {
-//				if(userFind instanceof Player) {
-//					return (Player)user;
-//				} else {
-//					return (Moderator)user;
-//				}
-//			} else { 
-//				return null;
-//			}
-//		} else {
-//			return null;
-//		}
 	}
 
 	@PostMapping("/signup")
