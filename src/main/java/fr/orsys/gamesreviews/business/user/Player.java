@@ -1,19 +1,18 @@
 package fr.orsys.gamesreviews.business.user;
 
-import fr.orsys.gamesreviews.business.Review;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import fr.orsys.gamesreviews.business.Review;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -26,6 +25,7 @@ public class Player extends User {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "player")
+    @JsonIgnore
     private List<Review> reviews;
 
     @Override
