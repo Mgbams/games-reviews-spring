@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Objects;
 
@@ -15,7 +14,6 @@ import java.util.Objects;
 @Entity
 public class Moderator extends User {
 
-    @Column(nullable = false)
     private String phoneNumber;
 
     @Override

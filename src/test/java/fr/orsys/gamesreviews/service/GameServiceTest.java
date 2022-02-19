@@ -164,7 +164,7 @@ class GameServiceTest {
     }
 
     @Test
-    void should_Return_UnmodifiableGameDTO_When_update_And_nothing_To_Update() {
+    void should_Return_Unmodified_GameDTO_When_update_And_nothing_To_Update() {
         long id = 1;
         Game game = new Game();
         game.setId(id);

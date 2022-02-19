@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
@@ -19,7 +18,6 @@ import java.util.Objects;
 @Entity
 public class Player extends User {
 
-    @Column(nullable = false)
     private LocalDate birthDate;
 
     @ToString.Exclude
