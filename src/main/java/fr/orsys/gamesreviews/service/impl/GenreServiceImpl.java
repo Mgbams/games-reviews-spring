@@ -1,12 +1,15 @@
 package fr.orsys.gamesreviews.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import fr.orsys.gamesreviews.business.Genre;
 import fr.orsys.gamesreviews.exception.RecordAlreadyExistException;
 import fr.orsys.gamesreviews.exception.RecordNotFoundException;
 import fr.orsys.gamesreviews.repository.GenreRepository;
 import fr.orsys.gamesreviews.service.GenreService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 
@@ -34,6 +37,12 @@ public class GenreServiceImpl implements GenreService {
         }
         return genreRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Could not find genre with id  " + id));
+    }
+    
+    @Override
+    public List<Genre> findAll() {
+        
+        return genreRepository.findAll();
     }
 
 }

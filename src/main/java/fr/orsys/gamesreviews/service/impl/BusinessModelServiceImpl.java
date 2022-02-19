@@ -6,6 +6,9 @@ import fr.orsys.gamesreviews.exception.RecordNotFoundException;
 import fr.orsys.gamesreviews.repository.BusinessModelRepository;
 import fr.orsys.gamesreviews.service.BusinessModelService;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -35,5 +38,10 @@ public class BusinessModelServiceImpl implements BusinessModelService {
         return businessModelRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Could not find business model with id  " + id));
     }
+
+	@Override
+	public List<BusinessModel> findAll() {
+		return businessModelRepository.findAll();
+	}
 
 }

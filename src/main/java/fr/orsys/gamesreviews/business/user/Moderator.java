@@ -15,7 +15,6 @@ import java.util.Objects;
 @Entity
 public class Moderator extends User {
 
-    @Column(nullable = false)
     private String phoneNumber;
 
     @Override

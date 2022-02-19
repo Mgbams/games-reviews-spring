@@ -1,10 +1,12 @@
 package fr.orsys.gamesreviews.service.impl;
 
-import fr.orsys.gamesreviews.exception.RecordNotFoundException;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import fr.orsys.gamesreviews.business.Classification;
 import fr.orsys.gamesreviews.exception.RecordAlreadyExistException;
+import fr.orsys.gamesreviews.exception.RecordNotFoundException;
 import fr.orsys.gamesreviews.repository.ClassificationRepository;
 import fr.orsys.gamesreviews.service.ClassificationService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,11 @@ public class ClassificationServiceImpl implements ClassificationService {
 	@Override
 	public long countClassifications() {
 		return classificationRepository.count();
+	}
+	
+	@Override
+	public List<Classification> getAllClassifications() {
+		return classificationRepository.findAll();
 	}
 
 	@Override
@@ -42,5 +49,6 @@ public class ClassificationServiceImpl implements ClassificationService {
 		return classificationRepository.findById(id)
 				.orElseThrow(() -> new RecordNotFoundException("Could not find Classification with id " + id));
 	}
+
 
 }

@@ -1,5 +1,9 @@
 package fr.orsys.gamesreviews.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +18,6 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("api/player")
-@CrossOrigin(origins = {"http://localhost:4200"})
 public class PlayerController {
 
 	private final PlayerService playerService;
@@ -33,7 +36,8 @@ public class PlayerController {
 	}
 	
 	@PostMapping("/signup")
-	public Player addPlayer(@RequestBody Player player) {
-		return playerService.addPlayer(player);
+	public ResponseEntity<Player> addPlayer(@Valid @RequestBody Player player) {
+		//PLayer newPlayer = new Player();
+        return new ResponseEntity<>(playerService.addPlayer(player), HttpStatus.CREATED);
 	}
 }

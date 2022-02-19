@@ -8,6 +8,9 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +22,6 @@ import java.util.Objects;
 @Entity
 public class Player extends User {
 
-    @Column(nullable = false)
     private LocalDate birthDate;
 
     @ToString.Exclude

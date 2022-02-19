@@ -6,6 +6,9 @@ import fr.orsys.gamesreviews.exception.RecordNotFoundException;
 import fr.orsys.gamesreviews.repository.PublisherRepository;
 import fr.orsys.gamesreviews.service.PublisherService;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -35,5 +38,10 @@ public class PublisherServiceImpl implements PublisherService {
         return publisherRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Could not find publisher with id  " + id));
     }
+
+	@Override
+	public List<Publisher> findAll() {
+		return publisherRepository.findAll();
+	}
 
 }

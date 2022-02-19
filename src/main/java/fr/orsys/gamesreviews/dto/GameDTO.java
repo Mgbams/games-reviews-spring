@@ -1,16 +1,26 @@
 package fr.orsys.gamesreviews.dto;
 
-import fr.orsys.gamesreviews.business.*;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import fr.orsys.gamesreviews.business.BusinessModel;
+import fr.orsys.gamesreviews.business.Classification;
+import fr.orsys.gamesreviews.business.Genre;
+import fr.orsys.gamesreviews.business.Platform;
+import fr.orsys.gamesreviews.business.Publisher;
+import lombok.Data;
+
 @Data
 public class GameDTO {
-
+    
     Long id;
 
     @NotBlank(message = "{game.name.null}")
