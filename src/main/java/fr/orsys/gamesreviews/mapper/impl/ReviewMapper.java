@@ -32,7 +32,7 @@ public class ReviewMapper implements Mapper<Review, ReviewDTO> {
             review.setPlayer(player);
         }
 
-        if (review.getModerator() != null) {
+        if (reviewDTO.getModerator() != null) {
             Moderator moderator = new Moderator();
             moderator.setId(reviewDTO.getModerator().id());
             review.setModerator(moderator);
@@ -62,12 +62,13 @@ public class ReviewMapper implements Mapper<Review, ReviewDTO> {
         }
         dto.setPublicationDateTime(review.getPublicationDateTime());
 
-        if (dto.getModerator() != null) {
+        if (review.getModerator() != null) {
             dto.setModerator(new ReviewDTO.User(
                     review.getModerator().getId(),
                     review.getModerator().getPseudonym()
             ));
             dto.setModerationDateTime(review.getModerationDateTime());
+            dto.setValidated(true);
         }
         return dto;
     }

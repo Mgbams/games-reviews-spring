@@ -161,27 +161,42 @@ class ReviewServiceTest {
     }
 
     @Test
+    void should_Throw_IllegalArgumentException_When_validate_And_ReviewDTO_null() {
+        assertThrows(IllegalArgumentException.class, () -> serviceUnderTest.validate(null));
+    }
+
+    @Test
+    void should_Throw_IllegalArgumentException_When_validate_And_Moderator_null() {
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setId(1L);
+        assertThrows(IllegalArgumentException.class, () -> serviceUnderTest.validate(reviewDTO));
+    }
+
+    @Test
     void should_Throw_RecordNotFoundException_When_validate_And_Review_NotFound() {
-        long reviewId = 1;
-        long moderatorId = 1;
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setId(1L);
+        reviewDTO.setModerator(new ReviewDTO.User(1L, "Moderator"));
         when(reviewRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        assertThrows(RecordNotFoundException.class, () -> serviceUnderTest.validate(reviewId, moderatorId));
+        assertThrows(RecordNotFoundException.class, () -> serviceUnderTest.validate(reviewDTO));
     }
 
     @Test
     void should_Return_Valid_Review_When_validate() {
-        long moderatorId = 1;
         Moderator moderator = new Moderator();
-        moderator.setId(moderatorId);
+        moderator.setId(1L);
         moderator.setPseudonym("Moderator");
 
-        long reviewId = 1;
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setId(1L);
+        reviewDTO.setModerator(new ReviewDTO.User(moderator.getId(), moderator.getPseudonym()));
+
         Review beforeValidation = new Review();
-        beforeValidation.setId(reviewId);
+        beforeValidation.setId(reviewDTO.getId());
 
         Review afterValidation = new Review();
-        afterValidation.setId(reviewId);
+        afterValidation.setId(beforeValidation.getId());
         afterValidation.setModerator(moderator);
         afterValidation.setModerationDateTime(LocalDateTime.now());
 
@@ -197,7 +212,7 @@ class ReviewServiceTest {
         when(reviewRepository.save(any(Review.class))).thenReturn(afterValidation);
         when(mapper.mapEntityToDto(any(Review.class))).thenReturn(expected);
 
-        ReviewDTO result = serviceUnderTest.validate(reviewId, moderatorId);
+        ReviewDTO result = serviceUnderTest.validate(reviewDTO);
 
         verify(reviewRepository).save(beforeValidation);
         verify(mapper).mapEntityToDto(afterValidation);
