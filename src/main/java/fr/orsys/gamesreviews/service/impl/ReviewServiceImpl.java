@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDTO add(ReviewDTO reviewDTO) {
         if (reviewDTO == null) {
-            throw new IllegalArgumentException("GameDTO must not be null");
+            throw new IllegalArgumentException("ReviewDTO must not be null");
         }
 
         Optional<Review> exist = reviewRepository.findByGameIdAndPlayerId(
@@ -66,17 +67,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDTO validate(Long reviewId, Long moderatorId) {
-        Optional<Review> dbRecord = reviewRepository.findById(reviewId);
-        if (dbRecord.isEmpty()) {
-            throw new RecordNotFoundException("Could not find review with id " + reviewId);
-        }
-        Review review = dbRecord.get();
+    public ReviewDTO validate(ReviewDTO reviewDTO) {
+        Assert.notNull(reviewDTO, "ReviewDTO must not be null");
+        Assert.notNull(reviewDTO.getModerator(), "ReviewDTO must contain moderator id");
+        Review review = reviewRepository.findById(reviewDTO.getId())
+                .orElseThrow(() -> new RecordNotFoundException("Could not find review with id " + reviewDTO.getId()));
+
         Moderator moderator = new Moderator();
-        moderator.setId(moderatorId);
+        moderator.setId(reviewDTO.getModerator().id());
         review.setModerator(moderator);
         review.setModerationDateTime(LocalDateTime.now());
-
         review = reviewRepository.save(review);
         return mapper.mapEntityToDto(review);
     }
