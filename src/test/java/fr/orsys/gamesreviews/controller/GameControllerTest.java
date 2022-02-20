@@ -1,41 +1,30 @@
 package fr.orsys.gamesreviews.controller;
 
-import static org.mockito.Mockito.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import fr.orsys.gamesreviews.dto.GameDTO;
-import fr.orsys.gamesreviews.service.BusinessModelService;
-import fr.orsys.gamesreviews.service.ClassificationService;
 import fr.orsys.gamesreviews.service.GameService;
-import fr.orsys.gamesreviews.service.GenreService;
-import fr.orsys.gamesreviews.service.PlatformService;
-import fr.orsys.gamesreviews.service.PublisherService;
 
 @ExtendWith(SpringExtension.class)
 class GameControllerTest {

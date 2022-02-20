@@ -8,6 +8,9 @@ import fr.orsys.gamesreviews.business.Classification;
 
 public interface ClassificationRepository extends JpaRepository<Classification, Long> {
 
-	Optional<Object> getByName(String name);
+	Optional<Classification> getByName(String name);
+
+	Optional<Classification> findByName(String name);
+
 
 }

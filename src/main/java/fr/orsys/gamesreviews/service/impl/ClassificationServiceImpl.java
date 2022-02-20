@@ -1,6 +1,7 @@
 package fr.orsys.gamesreviews.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,14 @@ public class ClassificationServiceImpl implements ClassificationService {
 				.orElseThrow(() -> new RecordNotFoundException("Could not find Classification with id " + id));
 	}
 
+	@Override
+	public Optional<Classification> findByName(String name) {
+
+		if (classificationRepository.findByName(name).isPresent()) {
+			throw new RecordAlreadyExistException(
+					"Classification with name \"" + name + "\" already exists");
+		}
+		return classificationRepository.findByName(name);
+	}
 
 }

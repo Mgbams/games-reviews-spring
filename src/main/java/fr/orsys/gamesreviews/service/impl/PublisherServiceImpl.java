@@ -8,6 +8,7 @@ import fr.orsys.gamesreviews.service.PublisherService;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,14 @@ public class PublisherServiceImpl implements PublisherService {
 	@Override
 	public List<Publisher> findAll() {
 		return publisherRepository.findAll();
+	}
+
+	@Override
+	public Optional<Publisher> getByName(String name) {
+		if ( publisherRepository.getByName(name).isPresent()) {
+			throw new RecordAlreadyExistException("Classification with name \"" + name + "\" already exists");
+		}
+		return  publisherRepository.getByName(name);
 	}
 
 }

@@ -8,6 +8,7 @@ import fr.orsys.gamesreviews.service.BusinessModelService;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,14 @@ public class BusinessModelServiceImpl implements BusinessModelService {
 	@Override
 	public List<BusinessModel> findAll() {
 		return businessModelRepository.findAll();
+	}
+
+	@Override
+	public Optional<BusinessModel> getByName(String name) {
+		if (businessModelRepository.getByName(name).isPresent()) {
+			throw new RecordAlreadyExistException("Classification with name \"" + name + "\" already exists");
+		}
+		return businessModelRepository.getByName(name);
 	}
 
 }
