@@ -51,11 +51,10 @@ public interface ReviewService {
     /**
      * This method validates review by moderator
      *
-     * @param reviewId      the {@link Long} review's id
-     * @param moderatorId   the {@link Long} moderator's id
-     * @return              the {@link ReviewDTO} updated in database
+     * @param reviewDTO the {@link ReviewDTO} containing review data to validate
+     * @return          the {@link ReviewDTO} updated in database
      */
-    ReviewDTO validate(Long reviewId, Long moderatorId);
+    ReviewDTO validate(ReviewDTO reviewDTO);
 
     /**
      * This method deletes a review from the database
