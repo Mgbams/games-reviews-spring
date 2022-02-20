@@ -15,7 +15,6 @@ import javax.validation.Valid;
 
 @AllArgsConstructor
 
-@CrossOrigin(origins = "http://localhost:4200")
 @Validated
 @RestController
 @RequestMapping("/api/reviews")
