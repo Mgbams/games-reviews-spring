@@ -87,5 +87,15 @@ public class GameServiceImpl implements GameService {
         }
         gameRepository.deleteById(id);
     }
+    
+    @Override
+    public void updateGamePicture(Long id, String picture) {
+    	  Optional<Game> dbRecord = gameRepository.findById(id);
+          if (dbRecord.isEmpty()) {
+              throw new RecordNotFoundException(GAME_NOT_FOUND + id);
+          }
+          
+          gameRepository.updateGamePicture(id, picture);
+    }
 
 }

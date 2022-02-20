@@ -69,7 +69,7 @@ public class GameController {
     	newGame.setDescription(gameDTO.getDescription());
     	newGame.setGenre(gameDTO.getGenre());
     	newGame.setName(gameDTO.getName());
-    	newGame.setPicture(gameDTO.getPicture().replace("C:\\fakepath\\", ""));
+    	newGame.setPicture(gameDTO.getPicture());
     	newGame.setPlatforms(gameDTO.getPlatforms());
     	newGame.setPublisher(gameDTO.getPublisher());
     	newGame.setReleaseDate(gameDTO.getReleaseDate());
@@ -86,25 +86,78 @@ public class GameController {
         }
 
         try (InputStream inputStream = file.getInputStream()) {
-            Path cheminFichier = chemin.resolve(file.getOriginalFilename().replace("C:\\fakepath\\", ""));
+            Path cheminFichier = chemin.resolve(file.getOriginalFilename());
             Files.copy(inputStream, cheminFichier, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
-            throw new IOException("Erreur d'écriture : " + file.getOriginalFilename().replace("C:\\fakepath\\", ""), ioe);
+            throw new IOException("Erreur d'écriture : " + file.getOriginalFilename(), ioe);
         }
         
     	return null;
     }
 
-    @PutMapping("/{id}")
+    /*@PutMapping("/{id}")
     public ResponseEntity<GameDTO> updateGame(@Valid @RequestBody GameDTO gameDTO,
                                               @PathVariable("id") Long id) {
         return new ResponseEntity<>(gameService.update(id, gameDTO), HttpStatus.OK);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteGame(@PathVariable("id") Long id) {
         gameService.deleteById(id);
         return new ResponseEntity<>("Game deleted successfully", HttpStatus.NO_CONTENT);
+    }
+    
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GameDTO> updateGame(@Valid @RequestBody GameDTO gameDTO, @PathVariable("id") Long id) {
+    	GameDTO newGame = new GameDTO();
+    	newGame.setBusinessModel(gameDTO.getBusinessModel());
+    	newGame.setClassification(gameDTO.getClassification());
+    	newGame.setDescription(gameDTO.getDescription());
+    	newGame.setGenre(gameDTO.getGenre());
+    	newGame.setName(gameDTO.getName());
+    	newGame.setPicture(gameDTO.getPicture());
+    	newGame.setPlatforms(gameDTO.getPlatforms());
+    	newGame.setPublisher(gameDTO.getPublisher());
+    	newGame.setReleaseDate(gameDTO.getReleaseDate());
+    	
+        return new ResponseEntity<>(gameService.update(id, gameDTO), HttpStatus.CREATED);
+    }
+    
+    @PutMapping(path = "/multipart", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<GameDTO> updateGame(@RequestParam("fileName") MultipartFile file) throws IOException {
+    	
+    	Path chemin = Paths.get(DIR_TO_UPLOAD);
+    	if (!Files.exists(chemin)) {
+            Files.createDirectories(chemin);
+        }
+
+        try (InputStream inputStream = file.getInputStream()) {
+            Path cheminFichier = chemin.resolve(file.getOriginalFilename());
+            Files.copy(inputStream, cheminFichier, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ioe) {
+            throw new IOException("Erreur d'écriture : " + file.getOriginalFilename(), ioe);
+        }
+        
+    	return null;
+    }
+    
+    @PutMapping(path = "/multipart/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<GameDTO> updateGameImage( @PathVariable("id") Long id, @RequestParam("fileName") MultipartFile picture) throws IOException {
+    	
+    	Path chemin = Paths.get(DIR_TO_UPLOAD);
+    	if (!Files.exists(chemin)) {
+            Files.createDirectories(chemin);
+        }
+
+        try (InputStream inputStream = picture.getInputStream()) {
+            Path cheminFichier = chemin.resolve(picture.getOriginalFilename());
+            Files.copy(inputStream, cheminFichier, StandardCopyOption.REPLACE_EXISTING);
+            gameService.updateGamePicture(id, picture.getOriginalFilename());
+        } catch (IOException ioe) {
+            throw new IOException("Erreur d'écriture : " + picture.getOriginalFilename(), ioe);
+        }
+        
+    	return null;
     }
 
 }

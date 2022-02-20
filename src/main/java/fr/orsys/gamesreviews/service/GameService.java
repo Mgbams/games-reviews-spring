@@ -18,4 +18,6 @@ public interface GameService {
 
     void deleteById(Long id);
 
+	void updateGamePicture(Long id, String picture);
+
 }

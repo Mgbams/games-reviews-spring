@@ -1,21 +1,32 @@
 package fr.orsys.gamesreviews.bootstrap;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.orsys.gamesreviews.business.*;
-import fr.orsys.gamesreviews.dto.GameDTO;
-import fr.orsys.gamesreviews.exception.RecordAlreadyExistException;
-import fr.orsys.gamesreviews.service.*;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import fr.orsys.gamesreviews.business.BusinessModel;
+import fr.orsys.gamesreviews.business.Classification;
+import fr.orsys.gamesreviews.business.Genre;
+import fr.orsys.gamesreviews.business.Platform;
+import fr.orsys.gamesreviews.business.Publisher;
+import fr.orsys.gamesreviews.dto.GameDTO;
+import fr.orsys.gamesreviews.exception.RecordAlreadyExistException;
+import fr.orsys.gamesreviews.service.BusinessModelService;
+import fr.orsys.gamesreviews.service.ClassificationService;
+import fr.orsys.gamesreviews.service.GameService;
+import fr.orsys.gamesreviews.service.GenreService;
+import fr.orsys.gamesreviews.service.PlatformService;
+import fr.orsys.gamesreviews.service.PublisherService;
+import fr.orsys.gamesreviews.service.ReviewService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
