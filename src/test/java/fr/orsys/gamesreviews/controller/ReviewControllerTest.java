@@ -112,12 +112,24 @@ class ReviewControllerTest {
     @Test
     void should_Return_ResponseEntity_With_ReviewDTO_And_Status_OK_When_validateReview() throws Exception {
         ReviewDTO review = new ReviewDTO();
-        given(reviewService.validate(any(Long.class), any(Long.class))).willReturn(review);
+        review.setScore(20);
+        review.setDescription("description");
+        review.setPlayer(new ReviewDTO.User(1L,"Player"));
+        review.setGame(new ReviewDTO.Game(1L, "Game"));
+        review.setPublicationDateTime(LocalDateTime.now().minusDays(1));
+        review.setModerator(new ReviewDTO.User(1L, "Moderator"));
+        review.setPublicationDateTime(LocalDateTime.now());
+
+        given(reviewService.validate(any(ReviewDTO.class))).willReturn(review);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put(REVIEWS_URL + "/validate")
-                        .param("reviewId", "1")
-                        .param("moderatorId", "1")
+                        .content(mapper.writeValueAsString(review))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isAccepted())
                 .andExpect(result -> new ResponseEntity<>(review, HttpStatus.ACCEPTED));

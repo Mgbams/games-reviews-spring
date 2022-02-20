@@ -44,10 +44,8 @@ public class ReviewController {
     }
 
     @PutMapping("/validate")
-    public ResponseEntity<ReviewDTO> validateReview(
-            @RequestParam(value = "reviewId") Long reviewId,
-            @RequestParam(value = "moderatorId") Long moderatorId) {
-        return new ResponseEntity<>(reviewService.validate(reviewId, moderatorId), HttpStatus.ACCEPTED);
+    public ResponseEntity<ReviewDTO> validateReview(@Valid @RequestBody ReviewDTO reviewDTO) {
+        return new ResponseEntity<>(reviewService.validate(reviewDTO), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")

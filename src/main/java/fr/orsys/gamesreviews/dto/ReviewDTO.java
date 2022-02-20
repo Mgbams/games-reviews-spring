@@ -31,6 +31,8 @@ public class ReviewDTO {
     private User moderator;
     private LocalDateTime moderationDateTime;
 
+    private boolean validated;
+
     public record Game(Long id, String name) { }
     public record User(Long id, String pseudonym) { }
 
