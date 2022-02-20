@@ -18,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import fr.orsys.gamesreviews.business.user.Moderator;
 import fr.orsys.gamesreviews.business.user.Player;
 import fr.orsys.gamesreviews.business.user.User;
-import fr.orsys.gamesreviews.dto.GameDTO;
 import fr.orsys.gamesreviews.dto.UserDTO;
 import fr.orsys.gamesreviews.exception.RecordNotFoundException;
 import fr.orsys.gamesreviews.mapper.Mapper;
