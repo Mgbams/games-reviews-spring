@@ -24,7 +24,6 @@ import fr.orsys.gamesreviews.service.GameService;
 import fr.orsys.gamesreviews.service.GenreService;
 import fr.orsys.gamesreviews.service.PlatformService;
 import fr.orsys.gamesreviews.service.PublisherService;
-import fr.orsys.gamesreviews.service.ReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

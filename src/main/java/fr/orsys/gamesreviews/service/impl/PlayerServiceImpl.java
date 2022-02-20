@@ -1,6 +1,5 @@
 package fr.orsys.gamesreviews.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.orsys.gamesreviews.business.user.Player;
@@ -14,17 +13,16 @@ import lombok.AllArgsConstructor;
 public class PlayerServiceImpl implements PlayerService {
 	
 
-    @Autowired
-	private final PlayerRepository playerRepositiory;
+	private final PlayerRepository playerRepository;
 
 	@Override
 	public Player addPlayer(Player player) {
-		return playerRepositiory.save(player);
+		return playerRepository.save(player);
 	}
 
 	@Override
 	public Player getPlayer(String pseudonym) {
-		return playerRepositiory.findByPseudonym(pseudonym);
+		return playerRepository.findByPseudonym(pseudonym);
 	}
 
 }

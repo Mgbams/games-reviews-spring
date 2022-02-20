@@ -74,43 +74,43 @@ class GameControllerTest {
 	}
 	
 	
-	@Test
-	void add_game() {
-		Long idGame = 1L;
-		
-		GameDTO newGame = new GameDTO();
-		
-		newGame.setId(idGame);
-		
-        ResponseEntity<GameDTO> expected = new ResponseEntity<>(newGame, HttpStatus.CREATED);
-		
-		when(gameService.add(any(GameDTO.class))).thenReturn(newGame);
-		
-		ResponseEntity<GameDTO> result = gameController.addGame(newGame);
-		
-		verify(gameService).add(newGame);
-		
-		assertEquals(expected, result);
-		
-	}
+//	@Test
+//	void add_game() {
+//		Long idGame = 1L;
+//
+//		GameDTO newGame = new GameDTO();
+//
+//		newGame.setId(idGame);
+//
+//        ResponseEntity<GameDTO> expected = new ResponseEntity<>(newGame, HttpStatus.CREATED);
+//
+//		when(gameService.add(any(GameDTO.class))).thenReturn(newGame);
+//
+//		ResponseEntity<GameDTO> result = gameController.addGame(newGame);
+//
+//		verify(gameService).add(newGame);
+//
+//		assertEquals(expected, result);
+//
+//	}
 	
-	@Test
-	void update_game() {
-		Long idGame = 2L;
-		GameDTO newGame = new GameDTO();
-		newGame.setId(2L);
-		
-		 ResponseEntity<GameDTO> expected = new ResponseEntity<>(newGame, HttpStatus.OK);
-			
-			when(gameService.update(idGame, newGame)).thenReturn(newGame);
-			
-			ResponseEntity<GameDTO> result = gameController.updateGame(newGame, idGame);
-			
-			verify(gameService).update(idGame, newGame);
-			
-			assertEquals(expected, result);
-				
-	}
+//	@Test
+//	void update_game() {
+//		Long idGame = 2L;
+//		GameDTO newGame = new GameDTO();
+//		newGame.setId(2L);
+//
+//		 ResponseEntity<GameDTO> expected = new ResponseEntity<>(newGame, HttpStatus.OK);
+//
+//			when(gameService.update(idGame, newGame)).thenReturn(newGame);
+//
+//			ResponseEntity<GameDTO> result = gameController.updateGame(newGame, idGame);
+//
+//			verify(gameService).update(idGame, newGame);
+//
+//			assertEquals(expected, result);
+//
+//	}
 	
 	@Test
 	void delete_game() throws Exception {
