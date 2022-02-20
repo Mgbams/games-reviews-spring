@@ -142,8 +142,7 @@ public class GameController {
     }
     
     @PutMapping(path = "/multipart/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<GameDTO> updateGameImage( @PathVariable("id") Long id, @RequestParam("fileName") MultipartFile picture) throws IOException {
-    	
+    public void updateGameImage( @PathVariable("id") Long id, @RequestParam("fileName") MultipartFile picture) throws IOException {
     	Path chemin = Paths.get(DIR_TO_UPLOAD);
     	if (!Files.exists(chemin)) {
             Files.createDirectories(chemin);
@@ -157,7 +156,6 @@ public class GameController {
             throw new IOException("Erreur d'écriture : " + picture.getOriginalFilename(), ioe);
         }
         
-    	return null;
     }
 
 }
