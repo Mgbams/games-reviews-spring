@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -85,9 +87,16 @@ class ReviewControllerTest {
     @Test
     void should_Return_ResponseEntity_With_ReviewDTO_And_Status_CREATED_When_addReview() throws Exception {
         ReviewDTO review = new ReviewDTO();
+        review.setScore(20);
+        review.setDescription("description");
+        review.setPlayer(new ReviewDTO.User(1L,"Player"));
+        review.setGame(new ReviewDTO.Game(1L, "Game"));
+        review.setPublicationDateTime(LocalDateTime.now().minusDays(1));
+
         given(reviewService.add(any(ReviewDTO.class))).willReturn(review);
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post(REVIEWS_URL + "/add")

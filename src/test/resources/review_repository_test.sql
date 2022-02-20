@@ -1,4 +1,4 @@
-INSERT INTO USER(id, user_type, email, password, pseudonym, phone_number) VALUES (1, 'Moderator' ,'a@a', 'pwd', 'moderator', '000000');
+INSERT INTO user(id, user_type, email, password, pseudonym, phone_number) VALUES (1, 'Moderator' ,'a@a', 'pwd', 'moderator', '000000');
 INSERT INTO user(id, user_type, email, password, pseudonym, birth_date) VALUES (2, 'Player', 'b@b', 'pwd', 'player', '2010-10-10');
 
 INSERT INTO game(id, description, name, picture, release_date) VALUES (1, 'description', 'name', 'picture', '2020-10-10');
