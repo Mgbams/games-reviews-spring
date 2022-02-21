@@ -24,7 +24,6 @@ public class ReviewDTO {
     @NotNull(message = "{review.player.null}")
     private User player;
 
-    @NotNull(message = "{review.publicationDateTime.null}")
     @Past(message = "{review.publicationDateTime.past}")
     private LocalDateTime publicationDateTime;
 
